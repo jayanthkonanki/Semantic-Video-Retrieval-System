@@ -1,11 +1,11 @@
 import time 
 import os 
 from preprocessing import upload_your_dataset
-from transformers import BlipProcessor, BlipForQuestionAnswering
-from sentence_transformers import SentenceTransformer
+from transformers import BlipProcessor, BlipForQuestionAnswering #type: ignore
+from sentence_transformers import SentenceTransformer #type: ignore
 import logging
-import chromadb
-import streamlit as st
+import chromadb  #type: ignore
+import streamlit as st  #type: ignore
 
 
 def init_worker_VQA():
@@ -39,7 +39,9 @@ def QUERY(Query):
 if __name__ == '__main__':
     
     st.title('WELCOME TO VIDEO-RETRIVEAL SYSTEM PROTOTYPE')
-    client = chromadb.PersistentClient(path='/home/jayanth/Documents/SMART-RETRIVEVAL /CHROMADBv1')
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+    CHROMA_PATH = os.path.join(BASE_DIR, "chroma_db")
+    client = chromadb.PersistentClient(path=CHROMA_PATH)
     chromadb_collection = client.get_or_create_collection(name = 'VIDEOs')
 
     streamlit_col1,streamlit_col2 = st.columns(2)
@@ -57,7 +59,8 @@ if __name__ == '__main__':
     video_address = []
 
     def save_uploaded_file(uploaded_files):
-           folder="/home/jayanth/Documents/SMART-RETRIVEVAL /STORAGE"
+           BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+           folder = os.path.join(BASE_DIR, "storage")
            os.makedirs(folder, exist_ok=True)
            file_path = os.path.join(folder, uploaded_files.name)
            with open(file_path, "wb") as f:

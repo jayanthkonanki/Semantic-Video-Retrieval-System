@@ -1,7 +1,8 @@
-import chromadb
+import chromadb 
 import logging
 import time
 import random
+import os 
 
 def generate_time_based_id():
     current_time = time.localtime()
@@ -13,7 +14,10 @@ def chromadb_setup(vector, summary,video_address):
     logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(module)s - %(levelname)s - %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
     dbpipeline = logging.getLogger('database_pipeline')
     dbpipeline.info('Setting up ChromaDB...')
-    client = chromadb.PersistentClient(path='SET_YOUR_PATH')
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+    CHROMA_PATH = os.path.join(BASE_DIR, "chroma_db")
+
+    client = chromadb.PersistentClient(path=CHROMA_PATH)
     dbpipeline.info('ChromaDB client created.')
     dbpipeline.info('Creating or getting collection...')
     collection = client.get_or_create_collection(name='VIDEOs')
