@@ -1,0 +1,13 @@
+# Ignore everything by default
+*
+
+# Un-ignore specific project files
+!database.py
+!preprocessing.py
+!README.md
+!requirements.txt
+!run.py
+
+# Un-ignore configuration files
+!.gitignore
+!packages.txt
